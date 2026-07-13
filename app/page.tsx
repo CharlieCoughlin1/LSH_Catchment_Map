@@ -237,7 +237,7 @@ export default function Home() {
                   aria-label="Close contact details"
                   onClick={() => setSelectedPieceId(null)}
                 >
-                  Ã—
+                  &times;
                 </button>
                 <div className="contact-panel__rule" />
                 <h1 id="region-contact-heading">{selectedPieceName}</h1>
