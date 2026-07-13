@@ -1,0 +1,427 @@
+@import "tailwindcss";
+@import url("https://fonts.cdnfonts.com/css/din-pro");
+
+:root {
+  --lsh-red: #cc2030;
+  --lsh-grey: #3d3834;
+  --lsh-light-grey: #dadad9;
+  --lsh-mid-grey: #878786;
+  --lsh-light-blue: #6ac9c8;
+  --lsh-teal: #00777a;
+  --lsh-blue: #005c82;
+  --lsh-indigo: #263645;
+  --lsh-deep-red: #7a2426;
+  --paper: #f7f7f5;
+  --ink: #211f1f;
+  --rule: rgba(61, 56, 52, 0.18);
+  --map-rule: rgba(61, 56, 52, 0.58);
+  --map-fill: #dadad9;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(204, 32, 48, 0.045), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 100%);
+  color: var(--ink);
+  font-family: "DIN Pro", DINPro, Calibri, Arial, sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.catchment-shell {
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.map-experience {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 247, 245, 0.9)),
+    linear-gradient(135deg, rgba(106, 201, 200, 0.08), transparent 42%),
+    #fbfbfa;
+}
+
+.map-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(96vw, 900px, 60svh);
+  aspect-ratio: 560 / 900;
+}
+
+.catchment-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 20px 38px rgba(38, 54, 69, 0.12));
+}
+
+.map-shadow path {
+  fill: rgba(38, 54, 69, 0.09);
+  transform: translate(3.5px, 4.5px);
+}
+
+.region-shape {
+  fill: var(--map-fill);
+  stroke: var(--map-rule);
+  stroke-linejoin: round;
+  stroke-width: 1.05;
+  cursor: pointer;
+  opacity: 0.92;
+  outline: none;
+  touch-action: manipulation;
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
+  transition:
+    opacity 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease,
+    stroke 180ms ease,
+    stroke-width 180ms ease;
+}
+
+.region-shape:hover,
+.region-shape.is-hovered,
+.region-shape.is-selected {
+  opacity: 1;
+  filter: drop-shadow(0 12px 14px rgba(38, 54, 69, 0.18));
+}
+
+.region-shape.is-hovered {
+  stroke: var(--lsh-red);
+  stroke-width: 1.55;
+  transform: translateY(-1.4px);
+}
+
+.region-shape.is-selected {
+  stroke: var(--lsh-grey);
+  stroke-width: 1.65;
+}
+
+.region-shape.is-muted {
+  opacity: 0.72;
+}
+
+.region-shape:focus-visible {
+  stroke: var(--lsh-red);
+  stroke-width: 2;
+}
+
+.map-label-group {
+  pointer-events: none;
+  user-select: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.map-label-bg {
+  fill: rgba(255, 255, 255, 0.82);
+  stroke: rgba(61, 56, 52, 0.15);
+  stroke-width: 0.75;
+  vector-effect: non-scaling-stroke;
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease,
+    filter 180ms ease;
+}
+
+.map-label-text {
+  fill: var(--lsh-grey);
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1;
+  text-anchor: middle;
+  transition: fill 180ms ease;
+}
+
+.map-label-group.is-hovered,
+.map-label-group.is-selected {
+  transform: translateY(-1px);
+}
+
+.map-label-group.is-hovered .map-label-bg,
+.map-label-group.is-selected .map-label-bg {
+  fill: rgba(255, 255, 255, 0.96);
+  stroke: rgba(204, 32, 48, 0.42);
+  filter: drop-shadow(0 7px 10px rgba(38, 54, 69, 0.12));
+}
+
+.map-label-group.is-hovered .map-label-text,
+.map-label-group.is-selected .map-label-text {
+  fill: var(--lsh-red);
+}
+
+.contact-popout {
+  --pin-offset: 50%;
+  position: absolute;
+  left: var(--pin-x);
+  top: var(--pin-y);
+  z-index: 4;
+  width: min(326px, calc(100vw - 32px));
+  transform: translate(var(--popout-x), var(--popout-y));
+  pointer-events: none;
+}
+
+.contact-popout--right {
+  --popout-x: 34px;
+}
+
+.contact-popout--left {
+  --popout-x: calc(-100% - 34px);
+}
+
+.contact-popout--middle {
+  --popout-y: -50%;
+  --pin-offset: 50%;
+}
+
+.contact-popout--down {
+  --popout-y: -20px;
+  --pin-offset: 20px;
+}
+
+.contact-popout--up {
+  --popout-y: calc(-100% + 20px);
+  --pin-offset: calc(100% - 20px);
+}
+
+.contact-popout__pin {
+  position: absolute;
+  top: var(--pin-offset);
+  z-index: 3;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--panel-accent);
+  box-shadow:
+    0 4px 12px rgba(38, 54, 69, 0.24),
+    0 0 0 3px rgba(255, 255, 255, 0.78);
+}
+
+.contact-popout__line {
+  position: absolute;
+  top: var(--pin-offset);
+  z-index: 2;
+  width: 28px;
+  height: 2px;
+  background: color-mix(in srgb, var(--panel-accent) 72%, var(--lsh-grey));
+}
+
+.contact-popout--right .contact-popout__pin {
+  left: -38px;
+  transform: translateY(-50%);
+}
+
+.contact-popout--right .contact-popout__line {
+  left: -28px;
+}
+
+.contact-popout--left .contact-popout__pin {
+  right: -38px;
+  transform: translateY(-50%);
+}
+
+.contact-popout--left .contact-popout__line {
+  right: -28px;
+}
+
+.contact-popout__body {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: min(78svh, 560px);
+  overflow: auto;
+  padding: 23px 24px 23px 23px;
+  border: 1px solid rgba(61, 56, 52, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 18px 48px rgba(38, 54, 69, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.42) inset;
+  backdrop-filter: blur(18px);
+  pointer-events: auto;
+}
+
+.contact-popout__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(61, 56, 52, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--lsh-grey);
+  cursor: pointer;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.contact-popout__close:hover,
+.contact-popout__close:focus-visible {
+  background: var(--lsh-red);
+  color: #ffffff;
+  outline: none;
+  transform: scale(1.04);
+}
+
+.contact-panel__rule {
+  width: 54px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--panel-accent);
+  box-shadow: 0 0 0 1px rgba(61, 56, 52, 0.06);
+}
+
+.contact-popout h1 {
+  margin: 0;
+  color: var(--lsh-grey);
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.04;
+}
+
+.contact-list {
+  display: grid;
+  gap: 13px;
+}
+
+.contact-office {
+  display: grid;
+  gap: 8px;
+  padding: 0 0 13px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.contact-office:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.contact-office h2 {
+  margin: 0;
+  color: var(--lsh-indigo);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.contact-people {
+  display: grid;
+  gap: 7px;
+}
+
+.contact-person {
+  display: grid;
+  gap: 3px;
+  padding: 7px 0 7px 12px;
+  border-left: 3px solid var(--panel-accent);
+  color: var(--lsh-grey);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.contact-person:hover,
+.contact-person:focus-visible {
+  border-left-color: var(--lsh-red);
+  color: var(--lsh-red);
+  outline: none;
+  transform: translateX(2px);
+}
+
+.contact-person span {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.contact-person small {
+  overflow-wrap: anywhere;
+  color: inherit;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .region-shape,
+  .map-label-group,
+  .contact-person {
+    transition: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .map-experience {
+    padding: 6px;
+  }
+
+  .map-stage {
+    width: min(94vw, 56svh);
+  }
+
+  .contact-popout {
+    position: fixed;
+    left: 50%;
+    top: auto;
+    bottom: 12px;
+    width: min(330px, calc(100vw - 20px));
+    transform: translateX(-50%);
+  }
+
+  .contact-popout__pin,
+  .contact-popout__line {
+    display: none;
+  }
+
+  .contact-popout__body {
+    max-height: 48svh;
+    padding: 18px;
+  }
+
+  .contact-popout h1 {
+    font-size: 24px;
+  }
+
+  .map-label-text {
+    font-size: 9.4px;
+  }
+}
