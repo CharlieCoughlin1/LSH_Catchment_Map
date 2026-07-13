@@ -49,7 +49,7 @@ The map uses ONS International Territorial Level 1 January 2025 BGC boundaries f
 
 ## Brand
 
-DINPro Regular and DINPro Bold are served from `public/fonts`. The colour palette follows the supplied LSH online/office guide, with `#cc2030` as the primary red.
+DIN Pro is loaded from the same web font CDN pattern used by the Central London Submarkets repo. The colour palette follows the supplied LSH online/office guide, with `#cc2030` as the primary red.
 
 ## Website Embed
 
