@@ -22,7 +22,7 @@ type PopoutPlacement = {
   vertical: "up" | "middle" | "down";
 };
 
-function getPinStyle(piece: MapPiece, accent: string) {
+function getPopoutStyle(piece: MapPiece, accent: string) {
   const x = ((piece.labelX - viewBoxX) / viewBoxWidth) * 100;
   const y = ((piece.labelY - viewBoxY) / viewBoxHeight) * 100;
 
@@ -225,21 +225,16 @@ export default function Home() {
               ].join(" ")}
               aria-live="polite"
               aria-labelledby="region-contact-heading"
-              style={getPinStyle(selectedPiece, "#cc2030")}
+              style={getPopoutStyle(selectedPiece, "#cc2030")}
               onClick={(event) => event.stopPropagation()}
             >
-              <span className="contact-popout__pin" aria-hidden="true" />
-              <span className="contact-popout__line" aria-hidden="true" />
               <div className="contact-popout__body">
                 <button
                   className="contact-popout__close"
                   type="button"
                   aria-label="Close contact details"
                   onClick={() => setSelectedPieceId(null)}
-                >
-                  &times;
-                </button>
-                <div className="contact-panel__rule" />
+                />
                 <h1 id="region-contact-heading">{selectedPieceName}</h1>
                 <div className="contact-list">
                   {selectedRegion.contacts.map((contact) => (
@@ -268,3 +263,4 @@ export default function Home() {
     </main>
   );
 }
+
