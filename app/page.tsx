@@ -106,9 +106,13 @@ export default function Home() {
     <main className="catchment-shell" onClick={handlePageClick}>
       <section
         className="map-experience"
-        aria-label="LSH regional catchment map"
+        aria-labelledby="map-page-title"
       >
-        <div className="map-stage">
+        <h1 className="map-title" id="map-page-title">
+          Valuations Team Coverage
+        </h1>
+        <div className="map-frame">
+          <div className="map-stage">
           <svg
             className="catchment-map"
             viewBox={mapViewBox}
@@ -258,6 +262,7 @@ export default function Home() {
               </div>
             </aside>
           ) : null}
+          </div>
         </div>
       </section>
     </main>
